@@ -141,6 +141,12 @@ This project is open source and available under the [MIT License](LICENSE).
 ## Support
 For questions, issues, or feature requests, please open an issue on the GitHub repository or contact the Umma NA development team.
 
+## Related Projects
+
+- **Backend API**: [umma-na-backend](https://github.com/Timamamu/umma-na-backend)
+- **Mobile App**: [umma-na-frontend](https://github.com/Timamamu/umma-na-mobile)
+
+
 ---
 
-**Built with ❤️ by Fatima Mamu for the Umma NA team**
+**Built by Fatima Mamu for the Umma NA team**
