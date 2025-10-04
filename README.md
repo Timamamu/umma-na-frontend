@@ -1,70 +1,146 @@
-# Getting Started with Create React App
+ ![Umma NA Logo](assets/ummana.png)
+# Umma NA Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React single-page application that provides administrative tools for the Umma NA community health platform. The interface delivers navigation between operational dashboards, resource management views, and data analytics placeholders while offering a fully interactive Communities module backed by the Umma NA REST API.
 
-## Available Scripts
+## Features
+- **Authentication shell** – Landing page with a styled login form and route redirection for future authentication logic.
+- **Responsive sidebar navigation** – Shared sidebar component that highlights the active route and provides quick links to major platform areas.
+- **Communities management** – Searchable table, create/edit/delete modals, and backend integration for managing catchment areas through the hosted API at `https://umma-na-backend.onrender.com`.
+- **Future module placeholders** – Routes and layouts for dashboards, CHIPS agents, ETS drivers, facilities, rides, and analytics that are ready to be wired up with real data sources.
 
-In the project directory, you can run:
+## Prerequisites
+- **Node.js**: Version 14.0 or higher recommended
+- **npm**: Version 6.0 or higher (comes with Node.js)
 
-### `npm start`
+## Tech Stack
+- [React 19](https://react.dev/) with React Router for client-side routing
+- [Create React App](https://create-react-app.dev/) build tooling
+- [Axios](https://axios-http.com/) and native Fetch for API communication
+- [Lucide React](https://lucide.dev/) icon set for UI affordances
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Getting Started
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Installation
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd umma-na-frontend
+   ```
 
-### `npm test`
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. **Start the development server**
+   ```bash
+   npm start
+   ```
+   The application runs at [http://localhost:3000](http://localhost:3000) with hot reloading enabled.
 
-### `npm run build`
+4. **Run the test watcher** (optional during development)
+   ```bash
+   npm test
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+5. **Create a production build**
+   ```bash
+   npm run build
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Environment Variables (Optional)
+By default, the app connects to the production API at `https://umma-na-backend.onrender.com`. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To use a different API endpoint (e.g., local development), create a `.env` file in the root directory:
 
-### `npm run eject`
+```bash
+REACT_APP_API_BASE_URL=http://localhost:3001
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Then update `src/pages/CommunitiesPage.jsx` to use:
+```javascript
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://umma-na-backend.onrender.com";
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## API Documentation
+This frontend connects to the Umma NA REST API for managing communities and health platform data.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **Backend Repository**: [https://github.com/Timamamu/umma-na-backend]
+- **Production API**: https://umma-na-backend.onrender.com
+- **API Endpoints Used**:
+  - `GET /catchment-areas` - Fetch all communities
+  - `POST /register-catchment-area` - Create new community
+  - `PUT /catchment-areas/:id` - Update community
+  - `DELETE /catchment-areas/:id` - Delete community
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+For complete API documentation and backend setup instructions, refer to the backend repository.
 
-## Learn More
+## Project Structure
+```
+src/
+├── assets/              # SVG blobs and logo artwork used across pages
+├── components/
+│   └── Sidebar.jsx      # Global navigation shell with active-route styling
+├── pages/               # Top-level routed views (login, dashboard, resources)
+│   ├── LoginPage.jsx
+│   ├── DashboardPage.jsx
+│   ├── CommunitiesPage.jsx
+│   ├── ChipsAgentsPage.jsx
+│   ├── ETSDriversPage.jsx
+│   ├── FacilitiesPage.jsx
+│   ├── RidesPage.jsx
+│   └── AnalyticsPage.jsx
+├── styles/              # Page-specific CSS modules referenced by views
+├── App.jsx              # Route configuration
+└── index.js             # React entry point that mounts the SPA
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Community Data Workflow
+1. Use the **Add Community** button to open the registration modal and submit a new catchment area.
+2. Use the table action buttons (Edit/Delete) to modify or remove existing communities. 
+3. Input validation ensures coordinates fall within valid latitude/longitude ranges before sending requests.
+4. Filter the list by name, settlement, ward, or LGA using the search bar at the top of the table.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Deployment
 
-### Code Splitting
+### Build for Production
+```bash
+npm run build
+```
+This creates an optimized production build in the `build/` folder.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Deploy to Hosting Platforms
+The production build can be deployed to:
+- **Vercel**: `npm i -g vercel && vercel`
+- **Netlify**: Drag and drop the `build/` folder or connect your GitHub repo
+- **GitHub Pages**: Follow the [CRA deployment guide](https://create-react-app.dev/docs/deployment/#github-pages)
 
-### Analyzing the Bundle Size
+See the [Create React App deployment documentation](https://create-react-app.dev/docs/deployment) for more options.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Testing & Quality
+This project relies on the default testing setup provided by Create React App (`react-scripts test`) and includes DOM testing utilities from Testing Library for authoring future unit tests.
 
-### Making a Progressive Web App
+Run tests with:
+```bash
+npm test
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Contributing
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-### Advanced Configuration
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## License
+This project is open source and available under the [MIT License](LICENSE).
 
-### Deployment
+## Support
+For questions, issues, or feature requests, please open an issue on the GitHub repository or contact the Umma NA development team.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Built with ❤️ by Fatima Mamu for the Umma NA team**
